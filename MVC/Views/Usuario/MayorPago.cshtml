@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Models.DTOs.UsuarioDTOs.ObtenerUsuarioDTO>
+
+@{
+    ViewBag.Title = "Usuarios con pagos mayores a un monto";
+}
+
+<h2>Usuarios con pagos mayores a un monto</h2>
+
+<!-- Formulario para ingresar monto -->
+<form method="post" class="mb-3">
+    <div class="mb-2">
+        <label for="monto">Monto:</label>
+        <input type="number" id="monto" name="monto" min="0" step="0.01" required class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
+<!-- Mensajes -->
+@if (ViewBag.Mensaje != null)
+{
+    <div class="alert alert-danger">@ViewBag.Mensaje</div>
+}
+
+<!-- Tabla de resultados -->
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Equipo</th>
+                <th>Email</th>
+                <th>Rol</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var usuario in Model)
+            {
+                <tr>
+                    <td>@usuario.Name</td>
+                    <td>@usuario.Apellido</td>
+                    <td>@usuario.Equipo</td>
+                    <td>@usuario.Email</td>
+                    <td>@usuario.Rol</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

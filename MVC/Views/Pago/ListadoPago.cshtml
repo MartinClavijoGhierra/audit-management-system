@@ -1,0 +1,58 @@
+﻿@using System.Linq
+@model IEnumerable<Models.DTOs.PagoDTOs.ListadoPagoDTO>
+
+
+@{
+    ViewBag.Title = "Listado Mensual de Pagos";
+}
+
+<h2>Listado mensual de pagos</h2>
+
+<form method="post">
+    <div>
+        <label>Mes:</label>
+        <input type="number" name="mes"  required />
+    </div>
+    <div>
+        <label>Año:</label>
+        <input type="number" name="anio"  required />
+    </div>
+    <button type="submit" class="btn btn-primary">Buscar</button>
+</form>
+
+@if (ViewBag.Mensaje != null)
+{
+    <div class="alert alert-danger">@ViewBag.Mensaje</div>
+}
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-striped mt-3">
+        <thead>
+            <tr>
+                <th>Tipo de Gasto</th>
+                <th>Usuario</th>
+                <th>Descripción</th>
+                <th>Monto Total</th>
+                <th>Saldo Pendiente</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pago in Model)
+            {
+                <tr>
+                    <td>@pago.TipoGasto</td>
+                    <td>@pago.UsuarionNombre</td>
+                    <td>@pago.Descripcion</td>
+                    <td>@pago.MontoTotal.ToString("C")</td>
+                    <td>@pago.SaldoPendiente.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@if (ViewBag.Mensaje != null)
+{
+    <div class="alert alert-danger">@ViewBag.Mensaje</div>
+}

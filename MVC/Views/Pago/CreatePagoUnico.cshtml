@@ -1,0 +1,88 @@
+﻿@using Models.DTOs.TipoGastosDTOs
+@model Models.DTOs.PagoDTOs.PagoUnicoDTO
+
+@{
+    ViewData["Title"] = "Crear Pago Único";
+}
+
+<h1 class="mb-4">Crear Pago Único</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <form asp-action="CreatePagoUnico">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="UsuarioId" class="form-label"></label>
+                        <input asp-for="UsuarioId" class="form-control" readonly />
+                        <span asp-validation-for="UsuarioId" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="MetodoPago" class="form-label"></label>
+                        <select asp-for="MetodoPago" class="form-select">
+                            <option value="">-- Seleccione método de pago --</option>
+                            <option value="1">Efectivo</option>
+                            <option value="2">Crédito</option>
+                        </select>
+                        <span asp-validation-for="MetodoPago" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="TipoGastoID" class="form-label"></label>
+                        <select asp-for="TipoGastoID" class="form-select">
+                            <option value="">-- Seleccione tipo de gasto --</option>
+                            @foreach (ListadoTipoGastoDTO gasto in Model.Gasto)
+                            {
+                                <option value="@gasto.Id">@gasto.Nombre</option>
+                            }
+                        </select>
+                        <span asp-validation-for="TipoGastoID" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Descripcion" class="form-label"></label>
+                        <input asp-for="Descripcion" class="form-control" placeholder="Ingrese descripción" />
+                        <span asp-validation-for="Descripcion" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Monto" class="form-label"></label>
+                        <input asp-for="Monto" class="form-control" placeholder="Ingrese monto" />
+                        <span asp-validation-for="Monto" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="FechaPago" class="form-label"></label>
+                        <input asp-for="FechaPago" class="form-control" type="date" />
+                        <span asp-validation-for="FechaPago" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="NumeroRecibo" class="form-label"></label>
+                        <input asp-for="NumeroRecibo" class="form-control" placeholder="Ingrese número de recibo" />
+                        <span asp-validation-for="NumeroRecibo" class="text-danger"></span>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Crear Pago</button>
+                        <a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Volver</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.Mensaje != null)
+{
+    <div class="alert alert-danger">@ViewBag.Mensaje</div>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

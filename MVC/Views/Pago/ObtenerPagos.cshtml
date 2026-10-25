@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Models.DTOs.PagoDTOs.ListadoPagoDTO>
+
+@{
+    ViewData["Title"] = "ObtenerPagos";
+}
+
+<h1>Obtener Pagos Realziados</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoGasto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UsuarionNombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MontoTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SaldoPendiente)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoGasto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UsuarionNombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MontoTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SaldoPendiente)
+            </td>
+
+        </tr>
+}
+    </tbody>
+</table>
+
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success text-center">@TempData["Success"]</div>
+}
+
+@if (ViewBag.Mensaje != null)
+{
+    <div class="alert alert-danger">@ViewBag.Mensaje</div>
+}

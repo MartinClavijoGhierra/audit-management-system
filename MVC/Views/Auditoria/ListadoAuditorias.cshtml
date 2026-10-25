@@ -1,0 +1,94 @@
+﻿@using Models.DTOs.TipoGastosDTOs
+
+@model IEnumerable<MVC.Models.DTOs.AuditoriaDTOs.ListadoAuditoriaDTO>
+
+
+@{
+    ViewData["Title"] = "ListadoAuditorias";
+}
+
+<h1>Listado Auditorias</h1>
+
+
+<form method="post">
+    <div class="mb-3">
+        <label="Id" class="form-label"></label>
+
+        <select name="idTipoGasto" class="form-select">
+            @if(ViewBag.TiposGastos != null){
+            <option value="">-- Seleccione un Gasto --</option>
+                @foreach (ListadoTipoGastoDTO tipoGastos in ViewBag.TiposGastos)
+                {
+                    <option value="@tipoGastos.Id">@tipoGastos.Nombre</option>
+                }
+
+            }
+            
+        </select>       
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Buscar</button>
+</form>
+
+
+@if (ViewBag.Mensaje != null)
+{
+    <div class="alert alert-danger">@ViewBag.Mensaje</div>
+}
+
+
+@if (Model != null && Model.Any())
+{
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Fecha)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Accion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TipoGasto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UsuarioId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UsuarioName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Activo)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Fecha.ToString("dd/MM/yyyy")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Accion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TipoGasto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UsuarioId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UsuarioName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Activo)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+
